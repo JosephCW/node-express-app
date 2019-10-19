@@ -18,18 +18,51 @@ const port = process.env.PORT || config.get("port");
 
 // declare your callback function the old way
 app.get('/', function (req, res) {
-  res.send('Welcome to the default page!  <br> <br>' +
-    'Try going to different URIs by adding these at the end: <br> <br>' +
-    '/hello <br>' +
-    '/big <br>' +
-    '/json <br>' +
-    '/greeting/yourname <br>' +
-    '/yo/Dr.Rogers <br>' +
-    '/fancy/?first=Denise&last=Case <br>' +
-    '/weather/5056172 <br>' +
-    '<br> <br>' +
-    'Fork the source code from <a href="https://github.com/denisecase/node-express-app">https://github.com/denisecase/node-express-app</a>'
-  )
+  
+  res.send(`
+    <h2> Here is a list of functions this website provides along with an example url<h2>
+    <p>
+      <table>
+        <tr>
+          <thead>
+            <td>URL</td>
+            <td>Usage</td>
+          </thead>
+        <tr>
+        <tr>
+          <td>/hello</td>
+          <td>Print Hello World!</td>
+        </tr>
+        <tr>
+          <td>/big</td>
+          <td>Hello World Header</td>
+        </tr>
+        <tr>
+          <td>/json</td>
+          <td>Display an example json string</td>
+        </tr>
+        <tr>
+          <td>/greeting/yourname</td>
+          <td>Display a greeting for the passed in name</td>
+        </tr>
+        <tr>
+          <td>/yo/yourname</td>
+          <td>Says yo, yourname</td>
+        </tr>
+        <tr>
+          <td>/fancy/?first=firstName&last=lastName</td>
+          <td>Show hello and then first + last name</td>
+        </tr>
+        <tr>
+          <td>/weather/id</td>
+          <td>Pass in the id for a city and show the current weather! 5056172 is Maryville</td>
+        </tr>
+      </table
+      <br/>
+      Note: City id's can be found <a href="https://openweathermap.org/find?q=">here</a> <br/>
+      Source Code <a href="https://github.com/JosephCW/node-express-app">here.</a>
+    </p>
+  `)
 })
 
 // or use the new arrow function syntax
