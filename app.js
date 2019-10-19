@@ -2,7 +2,7 @@
 const config = require('config')     // for config variables
 const express = require('express')   // Express web framework
 const helmet = require('helmet')     // HTTP security
-
+const fetch = require("node-fetch"); // fetching weather
 // create an Express app
 const app = express()
 
@@ -64,6 +64,24 @@ app.get('/fancy', (req, res) => {
   res.send(`Hello ${first} ${last}!`)
 })
 
+async function getWeather(url) {
+  const response = await fetch(url);
+  const jsonResp = await response.json()
+  console.log(JSON.stringify(jsonResp));
+  return jsonResp;
+}
+
+app.get('/weather/:id', async (req, res) => {
+  const url = `https://api.openweathermap.org/data/2.5/weather?id=${req.params.id}&appid=78731028ab536f59c458d69b60e95a1c`
+  const weather = await getWeather(url)
+  res.send(`<h1>The weather for ${weather.name} is as follows</h1><br/>
+    <p>
+      ${weather.weather[0].description} <br/>
+      ${weather.main.temp} deg k <br/>
+      ${weather.main.humidity}% humidity </br>
+    </p>`)
+})
+
 // Use middleware to handle all non-managed routes (e.g. /xyz)
 // https://expressjs.com/en/api.html#req.originalUrl
 app.use((req, res, next) => {
@@ -81,5 +99,6 @@ app.listen(port, hostname, () => {
   console.log(`   Try /yo/Dr.Rogers`)
   console.log(`   Try /fancy/?first=Denise&last=Case`)
   console.log('\n Hit CTRL-C CTRL-C to stop\n')
+  console.log(` Try going to /weather/5056172`)
 })
 

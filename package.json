@@ -12,7 +12,8 @@
   "dependencies": {
     "config": "latest",
     "express": "latest",
-    "helmet": "latest"
+    "helmet": "latest",
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "nodemon": "latest"
